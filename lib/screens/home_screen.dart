@@ -6,7 +6,7 @@ import '../models/file_system_model.dart';
 import '../utils/file_operations.dart';
 import '../utils/permission_handler.dart';
 import '../widgets/file_list_widget.dart';
-import '../widgets/file_metadata_widget.dart';
+import '../widgets/file_preview_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -110,17 +110,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Column(
           children: [
-            // Top container for file metadata
+            // Top container for file preview
             Flexible(
               flex: 1,
               child: Container(
                 margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   border: Border.all(width: 2, color: Colors.blue),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: FileMetadataWidget(
+                child: FilePreviewWidget(
                   selectedFile: _selectedFile,
                   fileSystemModel: _fileSystemModel,
                 ),
@@ -129,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             // Bottom container for file listing
             Flexible(
-              flex: 3,
+              flex: 2,
               child: Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
