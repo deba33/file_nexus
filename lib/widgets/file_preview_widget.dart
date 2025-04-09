@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../models/file_system_model.dart';
 
 class FilePreviewWidget extends StatelessWidget {
@@ -53,12 +54,14 @@ class FilePreviewWidget extends StatelessWidget {
     switch (fileType) {
       case 'Image':
         return _buildImagePreview();
+      case 'Document':
+        return _buildDocumentPreview();
       default:
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.insert_drive_file, size: 64),
+              Icon(Icons.insert_drive_file, size: 64, color: Colors.blue),
               const SizedBox(height: 16),
               Text('Preview not available for $fileType files'),
             ],
@@ -100,6 +103,32 @@ class FilePreviewWidget extends StatelessWidget {
             const Icon(Icons.error_outline, size: 64, color: Colors.red),
             const SizedBox(height: 16),
             Text('Error previewing image: ${e.toString()}'),
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget _buildDocumentPreview() {
+    try {
+      return SfPdfViewer.file(
+        File(selectedFile!.path),
+        enableDoubleTapZooming: true,
+        canShowPaginationDialog: true,
+        pageSpacing: 4,
+        onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
+          // This callback doesn't return anything (void)
+          debugPrint('Failed to load PDF: ${details.error}');
+        },
+      );
+    } catch (e) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, size: 64, color: Colors.red),
+            const SizedBox(height: 16),
+            Text('Error previewing PDF: ${e.toString()}'),
           ],
         ),
       );

@@ -39,6 +39,7 @@ dependencies:
   permission_handler: ^11.3.0
   intl: ^0.20.2
   device_info_plus: ^11.3.3
+  syncfusion_flutter_pdfviewer: ^29.1.37
 
 dev_dependencies:
   flutter_test:

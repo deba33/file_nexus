@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
-  // Ensure Flutter bindings are initialized before using platform channels
   WidgetsFlutterBinding.ensureInitialized();
 
   // Set preferred orientations to portrait mode
