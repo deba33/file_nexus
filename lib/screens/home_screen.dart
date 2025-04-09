@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<FileSystemEntity> _files = [];
   String _currentPath = '';
   FileSystemEntity? _selectedFile;
+  bool _isBottomContainerVisible = true;
 
   // Initialize the helper classes
   final FileSystemModel _fileSystemModel = FileSystemModel();
@@ -112,37 +113,71 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             // Top container for file preview
             Flexible(
-              flex: 1,
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.blue),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: FilePreviewWidget(
-                  selectedFile: _selectedFile,
-                  fileSystemModel: _fileSystemModel,
-                ),
+              // flex: 3,
+              child: Stack(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(8),
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.blue),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: FilePreviewWidget(
+                      selectedFile: _selectedFile,
+                      fileSystemModel: _fileSystemModel,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4, right: 4),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            // Toggle visibility of the bottom container
+                            _isBottomContainerVisible =
+                                !_isBottomContainerVisible;
+                          });
+                        },
+                        icon: CircleAvatar(
+                          backgroundColor: Colors.purple,
+                          foregroundColor: Colors.white,
+                          radius: 25,
+                          child: Icon(
+                            _isBottomContainerVisible
+                                ? Icons.open_in_full
+                                : Icons.close_fullscreen,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
             // Bottom container for file listing
-            Flexible(
-              flex: 2,
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.green),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: FileListWidget(
-                  currentPath: _currentPath,
-                  files: _files,
-                  selectedFile: _selectedFile,
-                  fileSystemModel: _fileSystemModel,
-                  onNavigateToDirectory: _navigateToDirectory,
-                  onNavigateUp: _navigateUp,
-                  onSelectFile: _selectFile,
+            Visibility(
+              visible: _isBottomContainerVisible,
+              child: Flexible(
+                // flex: 2,
+                child: Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.green),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: FileListWidget(
+                    currentPath: _currentPath,
+                    files: _files,
+                    selectedFile: _selectedFile,
+                    fileSystemModel: _fileSystemModel,
+                    onNavigateToDirectory: _navigateToDirectory,
+                    onNavigateUp: _navigateUp,
+                    onSelectFile: _selectFile,
+                  ),
                 ),
               ),
             ),

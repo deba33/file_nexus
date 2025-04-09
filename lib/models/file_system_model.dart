@@ -29,7 +29,7 @@ class FileSystemModel {
       'rar': 'Archive',
     };
 
-    return typeMap[extension] ?? 'File';
+    return typeMap[extension] ?? extension;
   }
 
   bool isAtRootDirectory(String path) {

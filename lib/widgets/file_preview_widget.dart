@@ -34,7 +34,7 @@ class FilePreviewWidget extends StatelessWidget {
           child: Center(
             child: Text(
               fileName,
-              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
             ),
           ),

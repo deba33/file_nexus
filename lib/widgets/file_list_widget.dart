@@ -217,7 +217,7 @@ class _FileListWidgetState extends State<FileListWidget> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12),
+                    // style: const TextStyle(fontSize: 12),
                   ),
                 ),
               ],
